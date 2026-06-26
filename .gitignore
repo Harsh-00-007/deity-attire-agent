@@ -1,0 +1,9 @@
+# Environments
+.env
+venv/
+__pycache__/
+
+# Data Folders (we don't want to push 500 images to GitHub)
+dataset/
+raw_images/
+processed_images/
