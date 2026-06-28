@@ -1,36 +1,27 @@
-# ==========================================
-# Agentic Diffusion Designer Requirements
-# ==========================================
-
 # --- Core Machine Learning & Vision ---
-# Required for running models, tensors, and GPU acceleration
+
 torch>=2.1.0
 torchvision>=0.16.0
-torchaudio>=2.1.0
 accelerate>=0.25.0
 safetensors>=0.4.1
 
 # --- Generative AI & Hugging Face ---
-# Required for Stable Diffusion inference and BLIP-2 captioning
+
 diffusers>=0.25.0
 transformers>=4.36.2
-huggingface_hub>=0.20.1
 
-# --- Agentic Workflow (The Art Director) ---
-# Required for the LLM orchestration and API communication
+# --- Agentic Workflow ---
+
 langchain>=0.1.0
 langchain-openai>=0.0.2
 openai>=1.6.1
+pydantic>=2.5.0
+langchain-google-genai>=1.0.0
 
-# --- Data Collection & Processing ---
-# Required for scraping Pinterest/Etsy and processing images
+# --- Web UI & Data ---
+
+streamlit>=1.30.0
 beautifulsoup4>=4.12.2
 requests>=2.31.0
-gallery-dl>=1.26.5
-opencv-python>=4.9.0
-Pillow>=10.2.0
-
-# --- App Interface & Utilities ---
-# Required for environment variables and web UI
 python-dotenv>=1.0.0
-gradio>=4.12.0
+Pillow>=10.2.0

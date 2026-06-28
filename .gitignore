@@ -1,9 +1,28 @@
-# Environments
+# Security (NEVER COMMIT THESE)
 .env
-venv/
-__pycache__/
+*.key
+secrets.toml
 
-# Data Folders (we don't want to push 500 images to GitHub)
-dataset/
-raw_images/
-processed_images/
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Massive AI Model Weights & Cache
+models/
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+.huggingface/
+.cache/
+
+# OS / Editor Files
+.DS_Store
+.vscode/
+.idea/
