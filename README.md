@@ -1,5 +1,8 @@
 # 🎨 AI Custom Design Studio (Deity Attire Agent)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Harsh-00-007/deity-attire-agent/blob/main/deployment.ipynb)
+
+
 An autonomous AI pipeline that acts as both a Design Researcher and a Vision Creator. 
 
 This application takes a vague client request (e.g., "Krishna winter poshak"), uses an LLM to autonomously reason and construct an optimized search query, scrapes the web for high-resolution cultural reference images, and mathematically blends them together using a Stable Diffusion IP-Adapter to generate a completely novel, custom design.
