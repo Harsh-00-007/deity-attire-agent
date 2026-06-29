@@ -94,16 +94,26 @@ with col_right:
     st.subheader("2. AI Design Blender")
     
     # Show what we are about to blend
-    st.markdown(f"**Selected Moodboard: {len(st.session_state.selected_images)} images**")
+    total_selected = len(st.session_state.selected_images) + (len(uploaded_files) if uploaded_files else 0)
+    st.markdown(f"**Selected Moodboard: {total_selected} images**")
     
-    if len(st.session_state.selected_images) == 0:
-        st.info("👈 Run a search and select images from the left panel to begin.")
+    if total_selected == 0:
+        st.info("👈 Run a search and select images from the left panel, or upload files to begin.")
     else:
         # Mini gallery of selected images
-        sel_cols = st.columns(len(st.session_state.selected_images))
-        for i, img_url in enumerate(st.session_state.selected_images):
-            with sel_cols[i]:
-                st.image(img_url, caption=f"Style {i+1}")
+        sel_cols = st.columns(total_selected)
+        col_idx = 0
+        
+        for img_url in st.session_state.selected_images:
+            with sel_cols[col_idx]:
+                st.image(img_url, caption=f"Web Style {col_idx+1}")
+            col_idx += 1
+            
+        if uploaded_files:
+            for file in uploaded_files:
+                with sel_cols[col_idx]:
+                    st.image(file, caption="Client Upload")
+                col_idx += 1
                 
         st.markdown("---")
         
@@ -116,21 +126,29 @@ with col_right:
         
         # Generate Button
         if st.button("✨ Generate New Design", type="primary"):
-            if len(st.session_state.selected_images) > 4:
-                st.warning("Please select a maximum of 4 images for best results.")
+            if total_selected > 4:
+                st.warning("Please select a maximum of 4 images total for best results.")
             else:
                 with st.spinner("Vision Engine is mathematically blending features... This takes 10-30 seconds."):
                     try:
+                        # Convert uploaded files to PIL Images for the backend
+                        client_pil_images = []
+                        if uploaded_files:
+                            for file in uploaded_files:
+                                client_pil_images.append(Image.open(file))
+                                
                         # Call the backend vision generator
                         generated_images = vision_engine.generate_blended_design(
                             image_urls=st.session_state.selected_images,
+                            local_images=client_pil_images,
                             text_prompt=guidance,
                             num_outputs=1
                         )
                         
                         st.success("Design Generated Successfully!")
                         # Display the final output
-                        st.image(generated_images[0], caption="Final AI Blended Design", width="stretch")
+                        st.image(generated_images[0], caption="Final AI Blended Design")
+                        
                         # Add a download button for the client
                         st.download_button(
                             label="Download Design",

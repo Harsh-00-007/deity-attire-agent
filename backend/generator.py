@@ -81,7 +81,8 @@ class DesignCreatorIPAdapter:
 
     def generate_blended_design(
         self, 
-        image_urls: List[str], 
+        image_urls: List[str] = None,
+        local_images: List[Image.Image] = None,
         text_prompt: str = "A highly detailed, intricate traditional deity poshak or custom card design, vivid colors, rich embroidery or patterns, professional studio photography, flat lay",
         negative_prompt: str = "human, face, body, blurry, low resolution, deformed, text, watermark",
         num_outputs: int = 1
@@ -94,10 +95,18 @@ class DesignCreatorIPAdapter:
         
         # Convert URLs to PIL Images
         reference_images = []
-        for url in image_urls:
-            img = self.download_image(url)
-            if img:
-                reference_images.append(img)
+         # 1. Process Web URLs
+        if image_urls:
+            for url in image_urls:
+                img = self.download_image(url)
+                if img:
+                    reference_images.append(img)
+                    
+        # 2. Process Local Uploads
+        if local_images:
+            for img in local_images:
+                # Ensure they are properly resized and formatted for the AI
+                reference_images.append(img.resize((512, 512)).convert("RGB"))
                 
         if not reference_images:
             raise ValueError("No valid reference images could be loaded.")
