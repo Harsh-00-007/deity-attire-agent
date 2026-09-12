@@ -31,7 +31,7 @@ class TrendResearcherAgent:
     and fetches relevant high-quality image URLs from the web.
     """
 
-    def __init__(self, model_name: str = "llama-3.1-8b-instant"):
+    def __init__(self, model_name: str = "openai/gpt-oss-20b"):
         """
         Initializes the agent with a specific LLM model.
         """
